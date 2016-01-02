@@ -184,10 +184,22 @@ public class UnityAdsPlugin extends CordovaPlugin {
 		}
 		else if (action.equals("showRewardedVideoAd")) {
 			showRewardedVideoAd(action, args, callbackContext);
-						
+
 			return true;
 		}
-		
+		else if (action.equals("canShow")) {
+
+            if (UnityAds.canShow() && UnityAds.canShowAds()) {
+                PluginResult pr = new PluginResult(PluginResult.Status.OK, "YES");
+            } else {
+                PluginResult pr = new PluginResult(PluginResult.Status.OK, "NO");
+            }
+
+		    callbackContext.sendPluginResult(pr);
+
+			return true;
+		}
+
 		return false; // Returning false results in a "MethodNotFound" error.
 	}
 

@@ -8,6 +8,7 @@
 @implementation UnityAdsPlugin
 
 @synthesize callbackIdKeepCallback;
+@synthesize canShowCallback;
 //
 @synthesize email;
 @synthesize licenseKey_;
@@ -82,6 +83,17 @@ static NSString *TEST_REWARDED_VIDEO_AD_PLACEMENT_ID = @"rewardedVideoZone";
     }];
 }
 
+- (void) canShow: (CDVInvokedUrlCommand*)command {
+
+    self.canShowCallback = command.callbackId;
+
+    [self.commandDelegate runInBackground:^{
+		[self _canShow];
+    }];
+}
+
+
+//CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"onVideoAdLoaded"];
 - (void) _setLicenseKey:(NSString *)email aLicenseKey:(NSString *)licenseKey {
 	self.email = email;
 	self.licenseKey_ = licenseKey;
@@ -177,6 +189,17 @@ static NSString *TEST_REWARDED_VIDEO_AD_PLACEMENT_ID = @"rewardedVideoZone";
 		// If both are ready, show the ad.
 		[[UnityAds sharedInstance] show];
 	}
+}
+
+- (void) _canShow:(NSString *)gameId aVideoAdPlacementId:(NSString *)videoAdPlacementId aRewardedVideoAdPlacementId:(NSString *)rewardedVideoAdPlacementId anIsTest:(BOOL)isTest {
+
+    if ([[UnityAds sharedInstance] canShow] && [[UnityAds sharedInstance] canShowAds]) {
+        CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"YES"];
+    } else {
+        CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"NO"];}
+    }
+
+    [unityAdsPlugin.commandDelegate sendPluginResult:pr callbackId:unityAdsPlugin.canShowCallback];
 }
 
 @end
