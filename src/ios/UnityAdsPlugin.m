@@ -191,12 +191,6 @@ static NSString *TEST_REWARDED_VIDEO_AD_PLACEMENT_ID = @"rewardedVideoZone";
 	}
 }
 
-@end
-
-@implementation MyUnityAdsDelegate
-
-@synthesize unityAdsPlugin;
-
 - (void) _canShow:(NSString *)gameId aVideoAdPlacementId:(NSString *)videoAdPlacementId aRewardedVideoAdPlacementId:(NSString *)rewardedVideoAdPlacementId anIsTest:(BOOL)isTest {
 
     if ([[UnityAds sharedInstance] canShow] && [[UnityAds sharedInstance] canShowAds]) {
@@ -205,10 +199,14 @@ static NSString *TEST_REWARDED_VIDEO_AD_PLACEMENT_ID = @"rewardedVideoZone";
         CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"NO"];
     }
 
-    //[pr setKeepCallbackAsBool:YES];
-
-    [unityAdsPlugin.commandDelegate sendPluginResult:pr callbackId:unityAdsPlugin.canShowCallback];
+    unityAdsPlugin.canShowCallback.sendPluginResult(pr);
 }
+
+@end
+
+@implementation MyUnityAdsDelegate
+
+@synthesize unityAdsPlugin;
 
 - (id) initWithUnityAdsPlugin:(UnityAdsPlugin *)unityAdsPlugin_ {
     self = [super init];
