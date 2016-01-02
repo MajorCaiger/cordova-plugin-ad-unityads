@@ -199,6 +199,8 @@ static NSString *TEST_REWARDED_VIDEO_AD_PLACEMENT_ID = @"rewardedVideoZone";
         CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"NO"];}
     }
 
+    [pr setKeepCallbackAsBool:YES];
+
     [unityAdsPlugin.commandDelegate sendPluginResult:pr callbackId:unityAdsPlugin.canShowCallback];
 }
 
