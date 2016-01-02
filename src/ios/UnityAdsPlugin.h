@@ -8,6 +8,7 @@
 @interface UnityAdsPlugin : CDVPlugin
 
 @property NSString *callbackIdKeepCallback;
+@property NSString *canShowCallback;
 //
 @property NSString *email;
 @property NSString *licenseKey_;
@@ -25,6 +26,7 @@
 - (void) setUp:(CDVInvokedUrlCommand*)command;
 - (void) showVideoAd:(CDVInvokedUrlCommand*)command;
 - (void) showRewardedVideoAd:(CDVInvokedUrlCommand*)command;
+- (void) canShow:(CDVInvokedUrlCommand*)command;
 
 @end
 
