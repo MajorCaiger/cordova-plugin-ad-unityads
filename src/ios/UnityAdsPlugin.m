@@ -195,13 +195,11 @@ static NSString *TEST_REWARDED_VIDEO_AD_PLACEMENT_ID = @"rewardedVideoZone";
 
     if ([[UnityAds sharedInstance] canShow] && [[UnityAds sharedInstance] canShowAds]) {
         CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"YES"];
+        [self.commandDelegate sendPluginResult:pr callbackId:self.canShowCallback];
     } else {
         CDVPluginResult* pr = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"NO"];
+        [self.commandDelegate sendPluginResult:pr callbackId:self.canShowCallback];
     }
-
-    [pr setKeepCallbackAsBool:YES];
-
-    [self.commandDelegate sendPluginResult:pr callbackId:unityAdsPlugin.canShowCallback];
 }
 
 @end
